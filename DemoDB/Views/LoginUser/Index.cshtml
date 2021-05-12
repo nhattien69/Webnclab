@@ -1,0 +1,55 @@
+﻿@model DemoDB.Models.AdminUser
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    tr,td{
+        padding: 4px;
+    }
+
+    #errorInfo {
+        text-align: right;
+        color: red;
+    }
+</style>
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("LoginAccount", "LoginUser"))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.ID)</td>
+            <td>@Html.TextBoxFor(Model => Model.ID, new { style = "field-validation-error" })</td>
+            <td>@Html.ValidationMessageFor(model => model.ID)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.PasswordUser)</td>
+            <td>@Html.EditorFor(model => model.PasswordUser)</td>
+            <td>@Html.ValidationMessageFor(model => model.PasswordUser)</td>
+        </tr>
+        <tr>
+            <td id="errorInfo" colspan="2">
+                @if (ViewBag.ErrorInfo != null)
+                {
+                    <p>@ViewBag.ErrorInfo</p>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td>
+                <input type="submit" value="Login" />
+                <button>@Html.ActionLink("Register", "RegisterUser")</button>
+            </td>
+        </tr>
+    </table>
+}
